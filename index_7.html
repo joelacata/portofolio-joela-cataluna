@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joela Cataluna · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --cream:#FFF8F0;
+    --pink:#FDE2E4;
+    --lavender:#E0BBE4;
+    --babyblue:#CDE7F0;
+    --mint:#D8F3DC;
+    --text:#6D6875;
+    --text-dark:#4A4453;
+    --white-glass: rgba(255,255,255,0.6);
+    --white-glass-strong: rgba(255,255,255,0.85);
+    --shadow-soft: 0 10px 30px rgba(160,140,190,0.15);
+    --shadow-soft-lg: 0 20px 50px rgba(160,140,190,0.22);
+    --radius-lg: 28px;
+    --radius-md: 20px;
+    --radius-sm: 14px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--text-dark);
+    background: linear-gradient(180deg, #FFF8F0 0%, #FDF6FB 40%, #F4FAFD 100%);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Poppins', sans-serif;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+
+  ::selection{
+    background: var(--lavender);
+    color:#fff;
+  }
+
+  /* ---------- Cursor Glow ---------- */
+  #cursor-glow{
+    position:fixed;
+    width:380px;
+    height:380px;
+    border-radius:50%;
+    pointer-events:none;
+    background: radial-gradient(circle, rgba(224,187,228,0.18) 0%, rgba(205,231,240,0.10) 45%, transparent 70%);
+    transform:translate(-50%,-50%);
+    z-index:0;
+    transition: opacity .3s ease;
+    z-index: 1;
+  }
+
+  /* ---------- Decorative Orbs / Blobs ---------- */
+  .bg-orb{
+    position:fixed;
+    border-radius:50%;
+    filter: blur(60px);
+    opacity:0.5;
+    z-index:0;
+    pointer-events:none;
+    animation: floatOrb 18s ease-in-out infinite;
+  }
+  .orb1{width:420px;height:420px;background:var(--pink);top:-120px;left:-100px;animation-delay:0s;}
+  .orb2{width:380px;height:380px;background:var(--babyblue);top:30%;right:-140px;animation-delay:3s;}
+  .orb3{width:300px;height:300px;background:var(--lavender);bottom:-100px;left:20%;animation-delay:6s;}
+  .orb4{width:260px;height:260px;background:var(--mint);top:60%;left:-100px;animation-delay:9s;}
+
+  @keyframes floatOrb{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(30px,-40px) scale(1.08); }
+  }
+
+  .sparkle{
+    position:absolute;
+    color: rgba(224,187,228,0.7);
+    pointer-events:none;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0.2; transform:scale(0.8) rotate(0deg);}
+    50%{opacity:1; transform:scale(1.2) rotate(15deg);}
+  }
+
+  section{
+    position:relative;
+    z-index:2;
+    padding: 120px 8vw;
+  }
+
+  .container{
+    max-width:1200px;
+    margin:0 auto;
+    position:relative;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:#a98fb0;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px;
+    height:2px;
+    background: linear-gradient(90deg, var(--lavender), var(--pink));
+    border-radius:2px;
+    display:inline-block;
+  }
+
+  .section-title{
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight:700;
+    margin-bottom:16px;
+    background: linear-gradient(90deg, #C89BC7, #9BB8D9);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    line-height:1.2;
+  }
+
+  .section-desc{
+    color:var(--text);
+    max-width:620px;
+    line-height:1.7;
+    font-size:1.02rem;
+    margin-bottom:60px;
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform: translateY(36px);
+    transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- Navbar ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:1000;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom:1px solid rgba(224,187,228,0.35);
+    transition: box-shadow .3s ease;
+  }
+  header.scrolled{
+    box-shadow: 0 8px 30px rgba(160,140,190,0.12);
+  }
+
+  .nav-wrap{
+    max-width:1300px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 16px 6vw;
+  }
+
+  .logo{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:1.25rem;
+    background: linear-gradient(90deg,#D68FA0,#A98FD9);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:0.01em;
+  }
+
+  .nav-links{
+    display:flex;
+    gap:2.2rem;
+    align-items:center;
+  }
+  .nav-links a{
+    font-size:0.92rem;
+    font-weight:500;
+    color:var(--text-dark);
+    position:relative;
+    padding:6px 2px;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0;bottom:0;
+    width:0%;
+    height:2px;
+    background: linear-gradient(90deg,var(--lavender),var(--babyblue));
+    transition: width .3s ease;
+    border-radius:2px;
+  }
+  .nav-links a:hover{color:#A98FD9;}
+  .nav-links a:hover::after{width:100%;}
+
+  .burger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    z-index:1001;
+  }
+  .burger span{
+    width:26px;height:2px;
+    background: var(--text-dark);
+    border-radius:2px;
+    transition: all .3s ease;
+  }
+  .burger.active span:nth-child(1){transform: translateY(7px) rotate(45deg);}
+  .burger.active span:nth-child(2){opacity:0;}
+  .burger.active span:nth-child(3){transform: translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed;
+    top:0;right:0;
+    height:100vh;
+    width:min(78vw,320px);
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+    box-shadow: -10px 0 40px rgba(160,140,190,0.2);
+    transform: translateX(100%);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1);
+    z-index:999;
+    display:flex;
+    flex-direction:column;
+    padding: 100px 40px;
+    gap:1.8rem;
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu a{
+    font-size:1.1rem;
+    font-weight:600;
+    color:var(--text-dark);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-weight:600;
+    font-size:0.92rem;
+    cursor:pointer;
+    border:none;
+    transition: transform .25s ease, box-shadow .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background: linear-gradient(90deg, #E0BBE4, #CDE7F0);
+    color:#5C4B66;
+    box-shadow: 0 12px 26px rgba(200,170,220,0.4);
+  }
+  .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 18px 34px rgba(200,170,220,0.5);}
+  .btn-outline{
+    background: rgba(255,255,255,0.6);
+    color: var(--text-dark);
+    border: 1.5px solid rgba(224,187,228,0.6);
+  }
+  .btn-outline:hover{ transform: translateY(-3px); background:#fff; box-shadow: var(--shadow-soft);}
+  .btn-ghost{
+    background:transparent;
+    color:#A98FD9;
+    border: 1.5px solid rgba(169,143,217,0.35);
+    font-size:0.82rem;
+    padding:9px 18px;
+  }
+  .btn-ghost:hover{ background: rgba(224,187,228,0.15); }
+  .btn-small{
+    padding:9px 16px;
+    font-size:0.8rem;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    padding-top:84px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    width:100%;
+  }
+  .hero-tag{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:50px;
+    background: var(--white-glass);
+    backdrop-filter: blur(8px);
+    border:1px solid rgba(224,187,228,0.4);
+    font-size:0.82rem;
+    font-weight:600;
+    color:#A98FD9;
+    margin-bottom:24px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    line-height:1.15;
+    font-weight:700;
+    margin-bottom:18px;
+    color:var(--text-dark);
+  }
+  .hero h1 span{
+    background: linear-gradient(90deg,#D68FA0,#A98FD9,#8FB8D9);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero .subtitle{
+    font-size:1.15rem;
+    font-weight:500;
+    color:#A98FD9;
+    margin-bottom:20px;
+  }
+  .hero p.desc{
+    color:var(--text);
+    line-height:1.8;
+    max-width:520px;
+    margin-bottom:36px;
+    font-size:1rem;
+  }
+  .hero-btns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+
+  .hero-photo-wrap{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .photo-glow{
+    position:absolute;
+    width:clamp(320px, 34vw, 440px);height:clamp(320px, 34vw, 440px);
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(224,187,228,0.5), rgba(205,231,240,0.3) 60%, transparent 75%);
+    filter: blur(30px);
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{
+    0%,100%{ transform:scale(1); opacity:0.8;}
+    50%{ transform:scale(1.08); opacity:1;}
+  }
+  .hero-photo{
+    position:relative;
+    width:clamp(280px, 30vw, 390px);height:clamp(280px, 30vw, 390px);
+    border-radius:50%;
+    overflow:hidden;
+    border: 6px solid rgba(255,255,255,0.8);
+    box-shadow: var(--shadow-soft-lg);
+    z-index:2;
+  }
+  .hero-photo img{
+    width:100%;height:100%;object-fit:cover;
+  }
+
+  .scroll-hint{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    font-size:0.75rem;
+    color:var(--text);
+    opacity:0.7;
+  }
+  .scroll-hint .dot{
+    width:6px;height:6px;
+    border-radius:50%;
+    background: var(--lavender);
+    animation: bounceDot 1.6s ease-in-out infinite;
+  }
+  @keyframes bounceDot{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(10px); }
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:56px;
+    align-items:start;
+  }
+  .about-text p{
+    color:var(--text);
+    line-height:1.9;
+    margin-bottom:20px;
+    font-size:1.02rem;
+  }
+  .about-highlights{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .highlight-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    background: var(--white-glass);
+    border:1px solid rgba(224,187,228,0.35);
+    border-radius:50px;
+    font-size:0.85rem;
+    font-weight:500;
+    color:var(--text-dark);
+    backdrop-filter: blur(6px);
+  }
+  .highlight-chip i{color:#A98FD9;}
+
+  .about-card{
+    background: var(--white-glass-strong);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(224,187,228,0.4);
+    border-radius: var(--radius-lg);
+    padding: 40px 34px;
+    box-shadow: var(--shadow-soft);
+  }
+  .about-card h3{
+    font-size:1.1rem;
+    margin-bottom:24px;
+    color:var(--text-dark);
+  }
+  .info-row{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(224,187,228,0.25);
+  }
+  .info-row:last-child{border-bottom:none;}
+  .info-icon{
+    width:38px;height:38px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background: linear-gradient(135deg, var(--pink), var(--lavender));
+    color:#fff;
+    flex-shrink:0;
+    font-size:0.9rem;
+  }
+  .info-row .label{
+    font-size:0.75rem;
+    color:#A98FD9;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .info-row .value{
+    font-size:0.92rem;
+    color:var(--text-dark);
+    font-weight:500;
+  }
+
+  /* ---------- Experience ---------- */
+  .exp-wrap{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+  }
+  .exp-wrap::before{
+    content:'';
+    position:absolute;
+    left:23px;
+    top:10px;
+    bottom:10px;
+    width:2px;
+    background:linear-gradient(180deg, rgba(169,143,217,0.55), rgba(162,210,255,0.35));
+    border-radius:999px;
+  }
+  .exp-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:64px minmax(0,0.96fr) minmax(320px,1.04fr);
+    gap:22px;
+    align-items:stretch;
+  }
+  .exp-marker{
+    position:relative;
+    z-index:1;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Poppins', sans-serif;
+    font-size:0.86rem;
+    font-weight:800;
+    color:#fff;
+    background:linear-gradient(135deg, var(--lavender), var(--babyblue));
+    box-shadow:0 10px 26px rgba(169,143,217,0.28);
+    border:4px solid rgba(255,255,255,0.9);
+  }
+  .exp-card,
+  .doc-slider{
+    background:var(--white-glass-strong);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(224,187,228,0.4);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-soft);
+  }
+  .exp-card{
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+  }
+  .exp-role{
+    font-size:1.18rem;
+    font-weight:700;
+    margin-bottom:6px;
+    color:var(--text-dark);
+    line-height:1.35;
+  }
+  .exp-company{
+    color:#A98FD9;
+    font-weight:600;
+    font-size:0.95rem;
+    margin-bottom:5px;
+  }
+  .exp-period{
+    color:var(--text);
+    font-size:0.85rem;
+    margin-bottom:18px;
+  }
+  .exp-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .exp-list li{
+    display:flex;
+    gap:11px;
+    color:var(--text);
+    font-size:0.92rem;
+    line-height:1.62;
+    list-style:none;
+  }
+  .exp-list li i{
+    color:#A98FD9;
+    margin-top:4px;
+    flex-shrink:0;
+  }
+  .exp-btns{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:auto;
+  }
+
+  .doc-slider{
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+  }
+  .doc-slider h4{
+    font-size:1rem;
+    margin-bottom:16px;
+    color:var(--text-dark);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .doc-slider h4 i{ color:#A98FD9; }
+  .slider-track-wrap{
+    overflow:hidden;
+    border-radius:var(--radius-md);
+  }
+  .slider-track{
+    display:flex;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .slide{
+    min-width:100%;
+    position:relative;
+  }
+  .slide img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:var(--radius-md);
+  }
+  .slide-caption{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:16px 18px;
+    background:linear-gradient(0deg, rgba(90,70,100,0.65), transparent);
+    color:#fff;
+    font-size:0.85rem;
+    font-weight:500;
+    border-radius:0 0 var(--radius-md) var(--radius-md);
+  }
+  .slider-controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:16px;
+  }
+  .slider-dots{
+    display:flex;
+    gap:8px;
+  }
+  .slider-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(224,187,228,0.4);
+    cursor:pointer;
+    transition:all .3s ease;
+  }
+  .slider-dot.active{
+    background:linear-gradient(90deg,var(--lavender),var(--babyblue));
+    width:22px;
+    border-radius:6px;
+  }
+  .slider-arrows{
+    display:flex;
+    gap:10px;
+  }
+  .slider-arrow{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.8);
+    border:1px solid rgba(224,187,228,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:#A98FD9;
+    transition:all .25s ease;
+  }
+  .slider-arrow:hover{
+    background:var(--lavender);
+    color:#fff;
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:30px;
+  }
+  .project-card{
+    background: linear-gradient(160deg, #ffffff, #FFF8F0);
+    border: 1px solid rgba(224,187,228,0.35);
+    border-radius: var(--radius-lg);
+    overflow:hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform .35s ease, box-shadow .35s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .project-card:hover{
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-soft-lg);
+  }
+  .project-thumb{
+    position:relative;
+    height:190px;
+    overflow:hidden;
+  }
+  .project-thumb img{
+    width:100%;height:100%;object-fit:cover;
+    transition: transform .5s ease;
+    position:relative;
+    z-index:1;
+  }
+  .project-card:hover .project-thumb img{
+    transform: scale(1.08);
+  }
+  .project-thumb::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, transparent 50%, rgba(109,104,117,0.25));
+    pointer-events:none;
+  }
+  .project-tag{
+    position:absolute;
+    top:14px;left:14px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    padding:5px 14px;
+    border-radius:50px;
+    font-size:0.72rem;
+    font-weight:700;
+    color:#A98FD9;
+    z-index:2;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .project-body{
+    padding: 26px 24px 24px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .project-body h3{
+    font-size:1.15rem;
+    margin-bottom:10px;
+    color:var(--text-dark);
+  }
+  .project-body p{
+    color:var(--text);
+    font-size:0.92rem;
+    line-height:1.65;
+    margin-bottom:16px;
+    flex:1;
+  }
+  .tech-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .tech-tags span{
+    font-size:0.72rem;
+    font-weight:600;
+    padding:5px 12px;
+    border-radius:50px;
+    background: var(--babyblue);
+    color:#4A6B7A;
+  }
+  .tech-tags span:nth-child(2n){ background: var(--pink); color:#9C5C6A; }
+  .tech-tags span:nth-child(3n){ background: var(--mint); color:#4F8064; }
+
+  .project-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap:26px;
+  }
+  .skill-card{
+    background: var(--white-glass-strong);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(224,187,228,0.35);
+    border-radius: var(--radius-md);
+    padding: 32px 26px;
+    box-shadow: var(--shadow-soft);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .skill-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(200,170,220,0.35);
+    border-color: rgba(224,187,228,0.7);
+  }
+  .skill-icon{
+    width:56px;height:56px;
+    border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+    color:#fff;
+    margin-bottom:20px;
+  }
+  .skill-card:nth-child(7n+1) .skill-icon{ background: linear-gradient(135deg,#E0BBE4,#CDE7F0);}
+  .skill-card:nth-child(7n+2) .skill-icon{ background: linear-gradient(135deg,#FDE2E4,#E0BBE4);}
+  .skill-card:nth-child(7n+3) .skill-icon{ background: linear-gradient(135deg,#D8F3DC,#CDE7F0);}
+  .skill-card:nth-child(7n+4) .skill-icon{ background: linear-gradient(135deg,#CDE7F0,#E0BBE4);}
+  .skill-card:nth-child(7n+5) .skill-icon{ background: linear-gradient(135deg,#FDE2E4,#D8F3DC);}
+  .skill-card:nth-child(7n+6) .skill-icon{ background: linear-gradient(135deg,#E0BBE4,#FDE2E4);}
+  .skill-card:nth-child(7n+7) .skill-icon{ background: linear-gradient(135deg,#D8F3DC,#E0BBE4);}
+
+  .skill-card h3{
+    font-size:1.05rem;
+    margin-bottom:10px;
+    color:var(--text-dark);
+  }
+  .skill-card p{
+    color:var(--text);
+    font-size:0.88rem;
+    line-height:1.6;
+  }
+
+  /* ---------- Certificates ---------- */
+  .cert-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px,1fr));
+    gap:20px;
+    align-items:stretch;
+  }
+  .cert-card{
+    background:#fff;
+    border:1px solid rgba(224,187,228,0.38);
+    border-radius:18px;
+    padding:20px;
+    box-shadow: var(--shadow-soft);
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+    transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  }
+  .cert-card:hover{
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft-lg);
+    border-color: rgba(149,125,173,0.36);
+  }
+  .cert-top{
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:16px;
+  }
+  .cert-number{
+    font-family:'Poppins', sans-serif;
+    min-width:38px;
+    height:30px;
+    padding:0 11px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:0.04em;
+    background:linear-gradient(135deg, rgba(255,175,204,0.24), rgba(162,210,255,0.28));
+    border:1px solid rgba(224,187,228,0.52);
+    line-height:1;
+  }
+  .cert-body{
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .cert-body h3{
+    font-size:1.02rem;
+    margin-bottom:9px;
+    color:var(--text-dark);
+    line-height:1.35;
+  }
+  .cert-body p{
+    color:var(--text);
+    font-size:0.86rem;
+    line-height:1.65;
+    margin-bottom:20px;
+    flex:1;
+  }
+  .cert-card .btn{
+    align-self:flex-start;
+    min-height:38px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap:50px;
+  }
+  .contact-info-card{
+    background: var(--white-glass-strong);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(224,187,228,0.4);
+    border-radius: var(--radius-lg);
+    padding: 38px 32px;
+    box-shadow: var(--shadow-soft);
+  }
+  .contact-info-card h3{
+    font-size:1.1rem;
+    margin-bottom:26px;
+  }
+  .contact-link{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(224,187,228,0.25);
+    transition: transform .25s ease;
+  }
+  .contact-link:last-child{border-bottom:none;}
+  .contact-link:hover{ transform: translateX(6px); color:#A98FD9;}
+  .contact-link .c-icon{
+    width:42px;height:42px;
+    border-radius:12px;
+    background: linear-gradient(135deg, var(--lavender), var(--babyblue));
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-link .c-text small{
+    display:block;
+    font-size:0.72rem;
+    color:#A98FD9;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-weight:600;
+  }
+  .contact-link .c-text span{
+    font-size:0.92rem;
+    font-weight:500;
+    color:var(--text-dark);
+  }
+
+  .contact-form-card{
+    background: var(--white-glass-strong);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(224,187,228,0.4);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+  }
+  .form-group{
+    margin-bottom:22px;
+  }
+  .form-group label{
+    display:block;
+    font-size:0.82rem;
+    font-weight:600;
+    color:var(--text-dark);
+    margin-bottom:8px;
+  }
+  .form-group input,
+  .form-group textarea{
+    width:100%;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid rgba(224,187,228,0.4);
+    background: rgba(255,255,255,0.7);
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    color:var(--text-dark);
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    resize:none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color: var(--lavender);
+    background:#fff;
+    box-shadow: 0 0 0 4px rgba(224,187,228,0.25);
+  }
+  .form-group textarea{ min-height:130px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding: 40px 8vw 34px;
+    color:var(--text);
+    font-size:0.85rem;
+    border-top: 1px solid rgba(224,187,228,0.3);
+  }
+  footer .heart{ color:#D68FA0; }
+
+  /* ---------- Lightbox ---------- */
+  .clickable-img{ cursor: zoom-in; }
+
+  #lightbox{
+    position:fixed;
+    inset:0;
+    background: rgba(74,68,83,0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:3000;
+    opacity:0;
+    visibility:hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+    padding: 40px 20px;
+  }
+  #lightbox.open{
+    opacity:1;
+    visibility:visible;
+  }
+  .lightbox-inner{
+    position:relative;
+    max-width:900px;
+    width:100%;
+    transform: scale(0.9);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  #lightbox.open .lightbox-inner{
+    transform: scale(1);
+  }
+  .lightbox-inner img{
+    width:100%;
+    max-height:80vh;
+    object-fit:contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+    background:#fff;
+  }
+  .lightbox-caption{
+    text-align:center;
+    color:#fff;
+    margin-top:18px;
+    font-size:0.95rem;
+    font-weight:500;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:-52px;
+    right:0;
+    width:42px;height:42px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.9);
+    color: var(--text-dark);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    font-size:1.1rem;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .lightbox-close:hover{
+    background:#fff;
+    transform: rotate(90deg);
+  }
+  @media (max-width:600px){
+    .lightbox-close{ top:-46px; width:38px;height:38px; }
+  }
+
+  /* ---------- Toast ---------- */
+  #toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform: translateX(-50%) translateY(120px);
+    background: #fff;
+    border: 1px solid rgba(224,187,228,0.5);
+    box-shadow: var(--shadow-soft-lg);
+    padding: 16px 28px;
+    border-radius: 50px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.9rem;
+    font-weight:500;
+    color:var(--text-dark);
+    z-index:2000;
+    transition: transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  #toast.show{ transform: translateX(-50%) translateY(0); }
+  #toast i{ color:#7CBF8F; }
+
+  /* ---------- Responsive ---------- */
+
+
+
+
+  @media (max-width: 980px){
+    .exp-wrap::before{ left:19px; }
+    .exp-item{ grid-template-columns:48px 1fr; gap:16px; }
+    .doc-slider{ grid-column:2; }
+    .exp-marker{ width:40px; height:40px; font-size:0.78rem; }
+  }
+  @media (max-width: 640px){
+    .exp-wrap::before{ left:16px; }
+    .exp-item{ grid-template-columns:40px 1fr; gap:12px; }
+    .exp-card,.doc-slider{ padding:18px; border-radius:18px; }
+    .doc-slider{ grid-column:1 / -1; margin-left:40px; }
+    .slide img{ height:220px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div id="cursor-glow"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+<div class="bg-orb orb4"></div>
+
+<!-- ===================== NAVBAR ===================== -->
+<header id="header">
+  <div class="nav-wrap">
+    <a href="#home" class="logo">Joela Cataluna </a>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Project</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Project</a>
+  <a href="#skills">Skills</a>
+  <a href="#certificates">Certifications</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section id="home" class="hero">
+  <div class="container hero-grid">
+    <div class="hero-content reveal">
+      <span class="hero-tag">✦ Available for Opportunities</span>
+      <h1>Hi, I'm <span>Joela Cataluna Virginia Fouk</span></h1>
+      <p class="subtitle">D3 in Telecommunications Engineering · State Polytechnic of Malang</p>
+      <p class="desc">
+        D3 Telecommunications Engineering graduate with a strong interest in pursuing a career in
+        <strong>IT Support</strong>, <strong>Helpdesk</strong>, and <strong>Network Engineering</strong>.
+        Experienced in <strong>MikroTik</strong> configuration, <strong>FTTH</strong> installation and
+        troubleshooting, <strong>IoT development</strong>, as well as <strong>Python</strong> and
+        <strong>MicroPython</strong> programming. Skilled in analyzing technical issues systematically,
+        providing practical solutions, and continuously learning new technologies to support professional growth.
+      </p>
+      <div class="hero-btns">
+        <!-- Ganti link berikut dengan link CV kamu -->
+        <a href="docs/CV-Joela.pdf" target="_blank" class="btn btn-primary" download><i class="fa-solid fa-download"></i> Download CV</a>
+        <a href="#projects" class="btn btn-outline"><i class="fa-solid fa-diagram-project"></i> View Projects</a>
+        <a href="#contact" class="btn btn-outline"><i class="fa-regular fa-paper-plane"></i> Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap reveal">
+      <div class="photo-glow"></div>
+      <div class="hero-photo">
+        <!-- Ganti src berikut dengan foto profil kamu -->
+        <img class="clickable-img" data-caption="Joela Cataluna Virginia Fouk" src="images/foto-profil.jpeg" alt="Profile Photo of Joela Cataluna Virginia Fouk">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <span class="dot"></span>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Get To Know Me</div>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I am a D3 Telecommunications Engineering graduate from <strong>State Polytechnic of Malang</strong>
+          (GPA 3.66/4.00) who is passionate about building a career in <strong>IT Support</strong>,
+          <strong>Helpdesk</strong>, and <strong>Network Engineer</strong> roles. During my studies
+          and internships, I had the opportunity to work directly on <strong>FTTH network
+          troubleshooting</strong>, <strong>MikroTik</strong> configuration, and developing
+          <strong>IoT</strong>-based projects and <strong>LoRa</strong> wireless communication.
+        </p>
+        <p>
+          That experience shaped my structured approach to solving technical problems, while
+          fostering curiosity toward new technology. I also have skills in <strong>Python
+          and MicroPython</strong> programming, <strong>AES encryption</strong>, and basic
+          data analysis, and I believe that combining networking, IoT, and customer service
+          skills is an important foundation for contributing meaningfully to the IT industry.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-chip"><i class="fa-solid fa-network-wired"></i> Network &amp; FTTH</div>
+          <div class="highlight-chip"><i class="fa-solid fa-microchip"></i> IoT Development</div>
+          <div class="highlight-chip"><i class="fa-solid fa-lock"></i> AES Encryption</div>
+          <div class="highlight-chip"><i class="fa-solid fa-headset"></i> IT Support / Helpdesk</div>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <h3>Quick Info</h3>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div>
+            <div class="label">Education</div>
+            <div class="value">D3 in Telecommunications Engineering · State Polytechnic of Malang</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <div>
+            <div class="label">Status</div>
+            <div class="value">Fresh Graduate (Graduated 2025)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="label">Location</div>
+            <div class="value">Malang City, East Java, Indonesia</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <div>
+            <div class="label">Interest</div>
+            <div class="value">IT Support · Helpdesk · Network Engineer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Career Journey</div>
+      <h2 class="section-title">Experience</h2>
+      <p class="section-desc">Each experience has its own documentation so the work context and supporting photos are easier to understand.</p>
+    </div>
+    <div class="exp-wrap">
+
+      <div class="exp-item reveal">
+        <div class="exp-marker">01</div>
+        <div class="exp-card">
+          <div class="exp-role">Help Desk Intern</div>
+          <div class="exp-company">PT. Telkom Akses - WiTel Malang</div>
+          <div class="exp-period"><i class="fa-regular fa-calendar"></i>&nbsp; July 2024 - November 2024</div>
+          <ul class="exp-list">
+            <li><i class="fa-solid fa-check"></i> Handling customer service disruption reports by checking network status, rebooting ONT via ACS, and rebooting OLT via the ZTE application.</li>
+            <li><i class="fa-solid fa-check"></i> Providing technical support for FTTH service activation, connection verification, and service usage education according to SOP.</li>
+            <li><i class="fa-solid fa-check"></i> Performing initial troubleshooting of FTTH network disruptions and escalating to field technicians when necessary.</li>
+            <li><i class="fa-solid fa-check"></i> Managing helpdesk administration through technician work recaps, report documentation, and customer coordination.</li>
+          </ul>
+          <div class="exp-btns">
+            <a href="docs/laporan magang telkom.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-lines"></i> Internship Report</a>
+            <a href="docs/sertifikat magang telkom akes.pdf" target="_blank" class="btn btn-ghost"><i class="fa-solid fa-award"></i> Internship Certificate</a>
+          </div>
+        </div>
+
+        <div class="doc-slider">
+          <h4><i class="fa-regular fa-images"></i> Help Desk Intern Documentation</h4>
+          <div class="slider-track-wrap">
+            <div class="slider-track">
+              <div class="slide">
+                <img class="clickable-img" data-caption="Customer FTTH network troubleshooting" src="images/helpdesk-1.jpeg" alt="Dokumentasi Help Desk 1">
+                <div class="slide-caption">Customer FTTH network troubleshooting</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Rebooting ONT/OLT via the ACS application" src="images/helpdesk-2.jpeg" alt="Dokumentasi Help Desk 2">
+                <div class="slide-caption">Rebooting ONT/OLT via the ACS application</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Rebooting ONT/OLT via the ZTE application" src="images/helpdesk-3.jpeg" alt="Dokumentasi Help Desk 2">
+                <div class="slide-caption">Rebooting ONT/OLT via the ZTE application</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Network monitoring using the OSM application" src="images/helpdesk-4.jpeg" alt="Dokumentasi Help Desk 2">
+                <div class="slide-caption">Network monitoring using the OSM application</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="OLT Maintenance" src="images/helpdesk-5.jpeg" alt="Dokumentasi Help Desk 3">
+                <div class="slide-caption">OLT Maintenance</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="ODP Maintenance" src="images/helpdesk-6.jpeg" alt="Dokumentasi Help Desk 4">
+                <div class="slide-caption">ODP Maintenance</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Coordination with the helpdesk team" src="images/helpdesk-7.jpeg" alt="Dokumentasi Help Desk 4">
+                <div class="slide-caption">Coordination with the helpdesk team</div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-controls">
+            <div class="slider-dots"></div>
+            <div class="slider-arrows">
+              <div class="slider-arrow prev-slide"><i class="fa-solid fa-chevron-left"></i></div>
+              <div class="slider-arrow next-slide"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-marker">02</div>
+        <div class="exp-card">
+          <div class="exp-role">Customer Relations Officer</div>
+          <div class="exp-company">Timoritel</div>
+          <div class="exp-period"><i class="fa-regular fa-calendar"></i>&nbsp; November 2025 - June 2026</div>
+          <ul class="exp-list">
+            <li><i class="fa-solid fa-check"></i> Providing service and consultation to customers regarding products, spare parts, and phone repair services.</li>
+            <li><i class="fa-solid fa-check"></i> Managing sales administration, transaction records, and customer data accurately and systematically.</li>
+            <li><i class="fa-solid fa-check"></i> Coordinating with the technician team on service handling and customer complaints, improving service resolution effectiveness.</li>
+            <li><i class="fa-solid fa-check"></i> Following up with customers on service status and device pickup, helping improve information accuracy and service flow.</li>
+          </ul>
+          <div class="exp-btns">
+          </div>
+        </div>
+
+        <div class="doc-slider">
+          <h4><i class="fa-regular fa-images"></i> Customer Relations Documentation</h4>
+          <div class="slider-track-wrap">
+            <div class="slider-track">
+              <div class="slide">
+                <img class="clickable-img" data-caption="Photo with the Customer Relations team" src="images/customer-relations-1.jpeg" alt="Photo with the Customer Relations team">
+                <div class="slide-caption">Team photo</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Serving customers" src="images/customer-relations-2.jpeg" alt="Melayani pelanggan">
+                <div class="slide-caption">Serving customers</div>
+              </div>
+              <div class="slide">
+                <img class="clickable-img" data-caption="Customer data entry via the Erzap application" src="images/customer-relations-3.jpeg" alt="Customer data entry via the Erzap application">
+                <div class="slide-caption">Customer data entry via the Erzap application</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slider-controls">
+            <div class="slider-dots"></div>
+            <div class="slider-arrows">
+              <div class="slider-arrow prev-slide"><i class="fa-solid fa-chevron-left"></i></div>
+              <div class="slider-arrow next-slide"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">My Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-desc">Several projects I worked on during my studies and IT self development.</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <span class="project-tag">IoT Security</span>
+          <!-- Ganti gambar thumbnail project -->
+          <img class="clickable-img" data-caption="LoRa Communication Implementation with AES Encryption" src="images/project-lora.jpeg" alt="LoRa Communication Implementation with AES Encryption">
+        </div>
+        <div class="project-body">
+          <h3>LoRa Communication with AES-ECB &amp; AES-GCM Encryption</h3>
+          <p>Implementation of LoRa wireless communication secured with AES-ECB and AES-GCM encryption to maintain the confidentiality of data sent between devices.</p>
+          <div class="tech-tags">
+            <span>LoRa</span><span>Python</span><span>AES Encryption</span>
+          </div>
+          <div class="project-actions">
+            <!-- Ganti link laporan PDF -->
+            <a href="docs/laporan-lora.pdf" target="_blank" class="btn btn-ghost"><i class="fa-regular fa-file-pdf"></i> PDF Report</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <span class="project-tag">IoT</span>
+          <!-- Ganti gambar thumbnail project -->
+          <img class="clickable-img" data-caption="ESP8266-based Metal Monitoring System" src="images/project-logam detector.jpeg" alt="ESP8266-based Metal Monitoring System">
+        </div>
+        <div class="project-body">
+          <h3>IoT-based Metal Monitoring System</h3>
+          <p>A metal monitoring system using the ESP8266 microcontroller connected to Firebase and the MIT App Inventor app for real-time data monitoring.</p>
+          <div class="tech-tags">
+            <span>ESP8266</span><span>Firebase</span><span>MIT App Inventor</span>
+          </div>
+          <div class="project-actions">
+          <a href="https://drive.google.com/file/d/1Q4W3kMPK2WDMABo3wSzfpGtNFfIzKKN5/view?usp=drivesdk" target="_blank" class="btn btn-outline btn-small">
+            <i class="fa-brands fa-google-drive"></i> G Drive Documentation
+          </a>
+        </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <span class="project-tag">Computer Vision</span>
+          <!-- Ganti gambar thumbnail project -->
+          <img class="clickable-img" data-caption="Smile Detector" src="images/project-smile detector.png" alt="Smile Detector">
+        </div>
+        <div class="project-body">
+          <h3>Smile Detector</h3>
+          <p>A computer vision based smile detection application used to automatically recognize facial expressions via camera or image input.</p>
+          <div class="tech-tags">
+            <span>Python</span><span>OpenCV</span><span>Computer Vision</span>
+          </div>
+          <div class="project-actions">
+            <!-- Ganti link laporan/demo jika ada -->
+            <a href="docs/laporan-smile detector.pdf" target="_blank" class="btn btn-ghost"><i class="fa-regular fa-file-pdf"></i> PDF Report</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <span class="project-tag">Radio Microwave</span>
+          <!-- Ganti gambar thumbnail project -->
+          <img class="clickable-img" data-caption="Multilink Planning for Radio Microwave Communication System from Malang to Pandaan" src="images/project-multilink.png" alt="Multilink Planning for Radio Microwave Communication System from Malang to Pandaan">
+        </div>
+        <div class="project-body">
+          <h3>Multilink Planning for Radio Microwave Communication System from Malang to Pandaan</h3>
+          <p>Planning a multilink radio microwave communication system from Malang to Pandaan, covering path analysis, link budget calculation, and transmission quality optimization between points.</p>
+          <div class="tech-tags">
+            <span>Radio Microwave</span><span>Multilink</span><span>Link Budget</span>
+          </div>
+          <div class="project-actions">
+            <!-- Ganti link laporan PDF -->
+            <a href="docs/laporan-multilink.pdf" target="_blank" class="btn btn-ghost"><i class="fa-regular fa-file-pdf"></i> PDF Report</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <span class="project-tag">LTE Planning</span>
+          <!-- Ganti gambar thumbnail project -->
+          <img class="clickable-img" data-caption="Long Term Evolution (LTE) Network Planning in Sukun District based on Coverage and Capacity with Atoll Radio Frequency Planning Software" src="images/project-lte.jpeg" alt="LTE Network Planning in Sukun District with Atoll Software">
+        </div>
+        <div class="project-body">
+          <h3>Long Term Evolution (LTE) Network Planning in Sukun District</h3>
+          <p>LTE network planning in Sukun District using Atoll Radio Frequency Planning software based on coverage and capacity analysis to improve service coverage quality.</p>
+          <div class="tech-tags">
+            <span>Atoll</span><span>LTE Planning</span><span>Coverage</span><span>Capacity</span>
+          </div>
+          <div class="project-actions">
+            <!-- Ganti link laporan PDF -->
+            <a href="docs/laporan-lte.pdf" target="_blank" class="btn btn-ghost"><i class="fa-regular fa-file-pdf"></i> PDF Report</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">What I Know</div>
+      <h2 class="section-title">Skills</h2>
+      <p class="section-desc">A combination of technical and non-technical skills developed during my studies and internships.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-network-wired"></i></div>
+        <h3>Network &amp; FTTH Administration</h3>
+        <p>Network installation, configuration, and troubleshooting, including MikroTik configuration.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
+        <h3>IoT Development</h3>
+        <p>Developing ESP32, ESP8266, and Arduino based systems for IoT monitoring needs.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-lock"></i></div>
+        <h3>Data Science &amp; Encryption</h3>
+        <p>Data processing, device communication, data analysis, and AES encryption with Python and MicroPython.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-file-excel"></i></div>
+        <h3>Data Processing</h3>
+        <p>Data processing using Microsoft Excel, including Pivot Table and VLOOKUP.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3>Problem Solving</h3>
+        <p>Analyzing the root cause of technical issues and determining effective solutions quickly.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-headset"></i></div>
+        <h3>Communication Skills</h3>
+        <p>Communicating technical solutions to non-technical users in easy to understand language.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><i class="fa-solid fa-people-group"></i></div>
+        <h3>Team Collaboration &amp; Time Management</h3>
+        <p>Collaborating across units, being thorough when checking devices, and managing work priorities well.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERTIFICATES ===================== -->
+<section id="certificates">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Recognition</div>
+      <h2 class="section-title">Certificates</h2>
+      <p class="section-desc">Certifications and awards that support my competence in technology.</p>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">01</span>
+        </div>
+        <div class="cert-body">
+          <h3>CCNA: Introduction to Networks</h3>
+          <p>A certification from CISCO covering computer networking fundamentals, IP addressing concepts, and networking devices.</p>
+          <a href="docs/sertif-ccna.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">02</span>
+        </div>
+        <div class="cert-body">
+          <h3>Junior Network Administrator Certification</h3>
+          <p>A network administration competency certification from Digitalent, covering network device configuration and management.</p>
+          <a href="docs/sertif-junior network adm.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">03</span>
+        </div>
+        <div class="cert-body">
+          <h3>Access Network Planner</h3>
+          <p>A competency certification from BNSP in telecommunications access network planning.</p>
+          <a href="docs/sertif-perencana jaringan akses.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">04</span>
+        </div>
+        <div class="cert-body">
+          <h3>Data Science for Internet of Things</h3>
+          <p>A training certificate from Kemnaker on applying data science to Internet of Things-based systems.</p>
+          <a href="docs/sertif-data science.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">05</span>
+        </div>
+        <div class="cert-body">
+          <h3>Cybersecurity Fundamentals</h3>
+          <p>A basic cybersecurity certification from IBM SkillsBuild, covering cybersecurity concepts, data protection, digital threats, and basic security practices.</p>
+          <a href="docs/sertif-cybersecurity fundamendals.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-number">06</span>
+        </div>
+        <div class="cert-body">
+          <h3>TOEIC Certificate</h3>
+          <p>An English proficiency certificate with a TOEIC score of 485, covering listening and reading skills in academic and professional contexts.</p>
+          <a href="docs/sertif-toeic.pdf" target="_blank" class="btn btn-outline btn-small"><i class="fa-regular fa-file-pdf"></i> View Certificate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Let's Connect</div>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-desc">I'm open to professional opportunities, project collaboration, and further discussion about technology needs and digital solution development.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-card reveal">
+        <h3>Get in Touch</h3>
+        <!-- Ganti email -->
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=joelafouk@gmail.com" target="_blank" class="contact-link">
+          <div class="c-icon"><i class="fa-regular fa-envelope"></i></div>
+          <div class="c-text"><small>Email</small><span>joelafouk@gmail.com</span></div>
+        </a>
+        <!-- Ganti link LinkedIn -->
+        <a href="https://www.linkedin.com/in/joelacataluna" target="_blank" class="contact-link">
+          <div class="c-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+          <div class="c-text"><small>LinkedIn</small><span>linkedin.com/in/joelacataluna</span></div>
+        </a>
+        <!-- Ganti link WhatsApp -->
+        <a href="https://wa.me/6281238308386?text=Halo%20Joela" target="_blank" class="contact-link">
+          <div class="c-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="c-text"><small>WhatsApp</small><span>+62 812-3830-8386</span></div>
+        </a>
+        <!-- Ganti link lokasi -->
+        <a href="https://www.google.com/maps/place/Malang,+Kota+Malang,+Jawa+Timur" target="_blank" class="contact-link">
+          <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="c-text"><small>Location</small><span>Malang, East Java</span></div>
+        </a>
+      </div>
+
+      <div class="contact-form-card reveal">
+        <form id="contactForm" action="https://formspree.io/f/xeebneby" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="alamat@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            <i class="fa-regular fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> Joela Cataluna Virginia Fouk.
+</footer>
+
+<div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Message sent successfully!</span></div>
+
+<div id="lightbox">
+  <div class="lightbox-inner">
+    <div class="lightbox-close" id="lightboxClose"><i class="fa-solid fa-xmark"></i></div>
+    <img id="lightboxImg" src="" alt="Preview">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+  // ---------- Year ----------
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Header scroll shadow ----------
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ---------- Mobile menu ----------
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ---------- Cursor glow ----------
+  const glow = document.getElementById('cursor-glow');
+  window.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+  window.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+  window.addEventListener('mouseenter', () => { glow.style.opacity = '1'; });
+
+  // ---------- Scroll reveal (IntersectionObserver) ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ---------- Contact Form ----------
+  const contactForm = document.getElementById('contactForm');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+
+    fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      toastMsg.textContent = res.ok
+        ? `Thank you, ${name || 'there'}! Your message has been sent.`
+        : `Failed to send. Please try again.`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+      contactForm.reset();
+      submitBtn.disabled = false;
+    }).catch(() => {
+      toastMsg.textContent = `Failed to send. Please check your internet connection.`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+      submitBtn.disabled = false;
+    });
+  });
+
+  // ---------- Lightbox ----------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src, caption) {
+    lightboxImg.src = src;
+    lightboxCaption.textContent = caption || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.clickable-img').forEach(img => {
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(img.src, img.dataset.caption || img.alt);
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ---------- Sparkle decoration ----------
+  function createSparkles() {
+    const icons = ['✦', '✧', '⋆'];
+    const sections = document.querySelectorAll('section');
+    sections.forEach(sec => {
+      for (let i = 0; i < 2; i++) {
+        const sparkle = document.createElement('span');
+        sparkle.classList.add('sparkle');
+        sparkle.textContent = icons[Math.floor(Math.random() * icons.length)];
+        sparkle.style.left = Math.random() * 90 + '%';
+        sparkle.style.top = Math.random() * 90 + '%';
+        sparkle.style.fontSize = (Math.random() * 14 + 10) + 'px';
+        sparkle.style.animationDelay = (Math.random() * 3) + 's';
+        sec.style.position = 'relative';
+        sec.appendChild(sparkle);
+      }
+    });
+  }
+  createSparkles();
+
+  // ---------- Smooth scroll offset fix for fixed header ----------
+  // Sections have large top padding for visual breathing room, but jumping
+  // straight to the section's edge leaves a big empty gap under the header.
+  // Instead we scroll to the section's inner content block (eyebrow + title)
+  // so it lands just below the header, with only a small breathing gap.
+  function computeScrollTarget(target) {
+    // Reveal the section's content immediately so it's already in its
+    // final (settled) position when we measure it — otherwise the
+    // fade-in-up animation shifts the heading upward *after* the jump.
+    target.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+
+    const header = document.getElementById('header');
+    const headerHeight = header ? header.offsetHeight : 80;
+    const gap = 24;
+    const inner = target.querySelector('.reveal') || target;
+    const top = inner.getBoundingClientRect().top + window.pageYOffset - headerHeight - gap;
+    return { inner, headerHeight, gap, top };
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId.length <= 1) return;
+      const target = document.querySelector(targetId);
+      if (!target) return;
+      e.preventDefault();
+
+      if (targetId === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const runScroll = () => {
+        const { inner, headerHeight, gap, top } = computeScrollTarget(target);
+        window.scrollTo({ top, behavior: 'smooth' });
+
+        // On a fresh page load, web fonts (Poppins / Font Awesome) can still
+        // be finishing up right after this click, which slightly reflows the
+        // layout upward once they swap in — leaving the heading hidden
+        // behind the fixed header. Re-measure shortly after and nudge the
+        // scroll position if it drifted.
+        setTimeout(() => {
+          const desired = inner.getBoundingClientRect().top + window.pageYOffset - headerHeight - gap;
+          if (Math.abs(desired - window.pageYOffset) > 4) {
+            window.scrollTo({ top: desired, behavior: 'smooth' });
+          }
+        }, 650);
+      };
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(runScroll);
+      } else {
+        runScroll();
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-doc-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('.doc-slide-track');
+    const slides = Array.from(carousel.querySelectorAll('.doc-slide'));
+    const prev = carousel.querySelector('.doc-slide-btn.prev');
+    const next = carousel.querySelector('.doc-slide-btn.next');
+    const dotsWrap = carousel.nextElementSibling && carousel.nextElementSibling.classList.contains('doc-slide-dots') ? carousel.nextElementSibling : null;
+    let index = 0;
+
+    if (!track || !slides.length) return;
+
+    const dots = dotsWrap ? slides.map((_, dotIndex) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'doc-slide-dot';
+      dot.setAttribute('aria-label', 'Show documentation ' + (dotIndex + 1));
+      dot.addEventListener('click', () => show(dotIndex));
+      dotsWrap.appendChild(dot);
+      return dot;
+    }) : [];
+
+    function show(nextIndex){
+      index = (nextIndex + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+    }
+
+    prev && prev.addEventListener('click', () => show(index - 1));
+    next && next.addEventListener('click', () => show(index + 1));
+    show(0);
+  });
+
+
+  document.querySelectorAll('.doc-slider').forEach((slider) => {
+    const sliderTrack = slider.querySelector('.slider-track');
+    const slides = Array.from(slider.querySelectorAll('.slide'));
+    const dotsWrap = slider.querySelector('.slider-dots');
+    const prevSlide = slider.querySelector('.prev-slide');
+    const nextSlide = slider.querySelector('.next-slide');
+    let currentSlide = 0;
+
+    if (!sliderTrack || !slides.length || !dotsWrap) return;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goToSlide(index));
+      dotsWrap.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsWrap.querySelectorAll('.slider-dot'));
+    function goToSlide(index){
+      currentSlide = (index + slides.length) % slides.length;
+      sliderTrack.style.transform = 'translateX(-' + currentSlide * 100 + '%)';
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+    }
+
+    prevSlide && prevSlide.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextSlide && nextSlide.addEventListener('click', () => goToSlide(currentSlide + 1));
+  });
+
+</script>
+
+</body>
+</html>
